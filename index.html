@@ -5,16 +5,23 @@
   <body>
     <div id="dynamiccontainer">
       <script id="template" type="text/ractive">
-        <select2 option="{{states}}" returnSelected="{{selectedItems}}"/>
-        <select2 option="{{other}}" returnSelected="{{otherSelectedItems}}"/>
+        <select2 option="{{states}}" returnSelected="{{selectedState}}"/>
+        <select2 option="{{counties[selectedState.0.id]}}" returnSelected="{{selectedCounty}}"/>
       </script>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
 
-
     <script>
+      /* This utility function is used by Select2 so that only start elements match */
+      function matchStart(params, data) {
+        params.term = params.term || '';
+        if (data.text.toUpperCase().indexOf(params.term.toUpperCase()) == 0) {
+          return data;
+        }
+        return false;
+      }
       Ractive.components['select2'] = Ractive.extend({
         template: '<select></select>',
         init: function() {
@@ -25,7 +32,16 @@
           option: function(val) {
             var that = this;
             setTimeout(function(){
-              $(that.select2Elem).select2({data:val, width:'10%', theme:'classic'});
+            $(that.select2Elem).empty();
+            $(that.select2Elem).select2(
+              {
+                data:val,
+                width:'10%',
+                theme:'classic',
+                matcher: function (params, data) {
+			            return matchStart(params, data);
+		            }
+              });
             }, 1);
           },
           returnSelected: function () {
@@ -41,48 +57,42 @@
         target: '#dynamiccontainer',
         template: '#template',
         data: {
-          states: [
+          states:[
+            {
+              id:'GA',
+              text:'Georgia'
+            },
+            {
+              id:'FL',
+              text:'Florida'
+            }
+          ],
+          counties:{
+            "GA":[
               {
-                "id": 0,
-                "text": "Select an option",
-                "disabled":true,
-                "selected":true
+                id:'Fulton',
+                text:'Fulton'
               },
               {
-                "id": 1,
-                "text": "Option 1"
-              },
-              {
-                "id": 2,
-                "text": "Option 2"
-              },
-              {
-                "id": 3,
-                "text": "Option 3"
+                id:'Cobb',
+                text:'Cobb'
               }
             ],
-          other:[
+            "FL":[
               {
-                "id": 0,
-                "text": "Select an option",
-                "disabled":true,
-                "selected":true
+                id:"Alachua",
+                text:"Alachua"
               },
               {
-                "id": 7,
-                "text": "Option 7"
+                id:"Baker",
+                text:"Baker"
               },
-              {
-                "id": 8,
-                "text": "Option 8"
-              },
-              {
-                "id": 9,
-                "text": "Option 9"
-              }
-          ]
+            ]
+          }
         }
       });
+
+
 
     </script>
   </body>
