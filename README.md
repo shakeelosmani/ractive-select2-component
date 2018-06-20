@@ -8,4 +8,4 @@ Example:
 ```html
 <select2 option="{{other}}" returnSelected="{{otherSelectedItems}}"/>
 ```
-When a dropdown item is selected on the above select2 component ractive.get('otherSelectedItems') will give you the result of selected dropdown item.
+When a dropdown item is selected on the above select2 component ```javascript ractive.get('otherSelectedItems')``` will give you the result of selected dropdown item.
