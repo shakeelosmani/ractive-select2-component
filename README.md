@@ -5,6 +5,7 @@ To get the value of selected option you can bind to returnSelected.
 
 Example:
 
+```html
 <select2 option="{{other}}" returnSelected="{{otherSelectedItems}}"/>
-
+```
 When a dropdown item is selected on the above select2 component ractive.get('otherSelectedItems') will give you the result of selected dropdown item.
