@@ -19,7 +19,7 @@
         template: '<select></select>',
         init: function() {
           var self = this;
-          this.select2Elem = $(this.find('select'));
+          this.select2Elem = this.find('select');
         },
         observe: {
           option: function(val) {
