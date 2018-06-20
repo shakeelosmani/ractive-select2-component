@@ -13,3 +13,7 @@ When a dropdown item is selected on the above select2 component
   ractive.get('otherSelectedItems')
 ``` 
 will give you the result of selected dropdown item.
+
+You can see it in action here:
+
+https://rawgit.com/shakeelosmani/ractive-select2-component/master/index.html
