@@ -24,7 +24,7 @@
       }
       Ractive.components['select2'] = Ractive.extend({
         template: '<select></select>',
-        init: function() {
+        onrender: function() {
           var self = this;
           this.select2Elem = this.find('select');
         },
